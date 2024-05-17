@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+		<meta content="" name="description">
+		<meta
+		content="" name="keywords">
+
+		<!-- Favicons -->
+		<link href="{{asset('assets/img/favicon.png')}}" rel="icon">
+		<link
+		href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+		<!-- Google Fonts -->
+		<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+		<!-- Vendor CSS Files -->
+		<link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+		<link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+		<link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+		<link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+		<link
+		href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+		<!-- Template Main CSS File -->
+		<link
+		href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+	<!-- =======================================================
+	  * Template Name: Day - v4.7.0
+	  * Template URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
+	  * Author: BootstrapMade.com
+	  * License: https://bootstrapmade.com/license/
+	  ======================================================== -->
+	</head>
+
+	<body>
+		<!-- ======= Header ======= -->
+
+		<header id="header" class="d-flex align-items-center">
+			<div class="container d-flex align-items-center justify-content-between">
+
+				<h1 class="logo">
+					<a href="{{ path('app_home') }}">Freelancy</a>
+				</h1>
+				<!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+				<nav id="navbar" class="navbar">
+					<ul>
+						<li>
+							<a href="">Home</a>
+						</li>
+					
+						<li>
+							<a href="{{ path('products_index') }}"> Produit </a>
+						</li>
+						
+						<li>
+							<a href="{{ path('cart_') }}"> Commande </a>
+						</li>
+						
+						<li>
+							<a href="">Certifications</a>
+						</li>
+						<li>
+							<a href="{{ path('cart_') }}"> Cart </a>
+						</li>
+						{% if app.user %}
+							<ul>
+												
+
+								<li>
+									<a href="{{ path('app_utilisateur_showProfile', {'id': app.user.id}) }}">
+										Profile
+									</a>
+								</li>
+							</ul>
+							<li>
+	</li>
+												<li>
+																<a href="{{ path('app_service_index') }}">
+									Service
+									</a>
+						</li>
+						</li>
+												<li>
+																<a href="{{ path('app_categorie_index') }}">
+									Categorie
+									</a>
+						</li>
+
+								<a href="{{ path('app_logout') }}">Log out
+								</a>
+							</li>
+						</ul>
+					{% endif %}
+
+					<i class="bi bi-list mobile-nav-toggle"></i>
+				</nav>
+				<!-- .navbar -->
+
+			</div>
+		</header>
+		<!-- End Header -->
+
+		{% block contentblock %}{% endblock %}
+
+		<!-- ======= Footer ======= -->
+		<footer id="footer">
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+
+						<div align="center">
+							<div class="footer-info">
+								<h3>Freelancy</h3>
+								<p>
+									Ariana soghra
+									<br>
+									Tunisia<br><br>
+									<strong>Phone:</strong>
+									+216 12345678<br>
+									<strong>Email:</strong>
+									Freelancy.team@support.com<br>
+								</p>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+
+		</footer>
+		<!-- End Footer -->
+
+		<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+			<i class="bi bi-arrow-up-short"></i>
+		</a>
+		<div id="preloader"></div>
+
+		<!-- Vendor JS Files -->
+		<script src="{{asset('assets/vendor/aos/aos.js')}}"></script>
+		<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+		<script src="{{asset('assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+		<script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+		<script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
+
+		<!-- Template Main JS File -->
+		<script src="{{asset('assets/js/main.js')}}"></script>
+
+	</body>
+
+</html>

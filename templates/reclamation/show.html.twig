@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block body %}
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reclamation.id }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ reclamation.Sujet }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ reclamation.Description }}</td>
+            </tr>
+            <tr>
+                <th>Dt</th>
+                <td>{{ reclamation.dt ? reclamation.dt|date('Y-m-d H:i:s T') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Verified</th>
+                <td>{{ reclamation.verified ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+
+    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+
+    {{ include('reclamation/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block contentblock %} 
+   
+ 
+  
+
+    {{ include('reclamation/_form.html.twig') }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+        </div>
+{% endblock %}

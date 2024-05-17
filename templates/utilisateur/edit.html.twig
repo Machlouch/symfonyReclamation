@@ -1,0 +1,19 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block contentblock %}
+    <h1>Edit User</h1>
+
+    {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+    <div align = "center">
+    {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
+    <div align = "right">
+        <a href="{{ path('app_utilisateur_index') }}">
+        <button type="button" class="btn btn-dark btn-rounded btn-fw">back to list</button>
+        </a>
+    </div>
+
+    
+{% endblock %}

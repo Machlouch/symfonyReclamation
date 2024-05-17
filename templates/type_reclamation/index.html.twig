@@ -1,0 +1,76 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block title %}TypeReclamation index{% endblock %}
+
+{% block body %}
+    <h1>TypeReclamation index</h1>
+    <!-- Bouton de tri -->
+    <div align='center' style="margin-top: 20px;">
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <form action="{{ path('app_type_reclamation_search') }}" method="get" class="input-group">
+                    <input type="text" name="nom" class="form-control" placeholder="Recherche par nom" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <a href="{{ path('app_type_reclamation_tri', {'sort': 'nom', 'direction': 'ASC'}) }}" class="btn btn-info">Tri par nom (ASC)</a>
+        <a href="{{ path('app_type_reclamation_tri', {'sort': 'nom', 'direction': 'DESC'}) }}" class="btn btn-info">Tri par nom (DESC)</a>
+        <!-- Ajoutez d'autres boutons de tri au besoin -->
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_reclamation in type_reclamations %}
+            <tr>
+                <td>{{ type_reclamation.id }}</td>
+                <td>{{ type_reclamation.nom }}</td>
+                <td>{{ type_reclamation.description }}</td>
+                <td>
+                    <a href="{{ path('app_type_reclamation_statistics', {'nom': type_reclamation.nom}) }}" class="btn btn-secondary">Statistiques</a>
+                    <a href="{{ path('app_type_reclamation_show', {'id': type_reclamation.id}) }}" class="btn btn-primary">Voir</a>
+                    <a href="{{ path('app_type_reclamation_edit', {'id': type_reclamation.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   <a href="{{ path('app_type_reclamation_new') }}" class="btn btn-custom">Créer un nouveau</a>
+
+<style>
+.btn-custom {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 15px 32px; /* Some padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Use inline-block */
+    font-size: 16px; /* Increased text size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 25px; /* Rounded corners */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.btn-custom:hover {
+    background-color: #45a049; /* Darker green background */
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* Add shadow on hover */
+}
+</style>
+{% endblock %}

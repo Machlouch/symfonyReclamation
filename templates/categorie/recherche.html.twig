@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="search-container">
+        <h1 class="search-title">Recherche de catégorie</h1>
+        <form class="search-form" method="get" action="{{ path('app_categorie_search') }}">
+            <input class="search-input" type="text" name="name" placeholder="Entrez le nom de la catégorie à rechercher" />
+            <button class="search-button" type="submit">Rechercher</button>
+        </form>
+        
+        {% if categorie %}
+            <div class="search-results">
+                <h2>Résultats de la recherche:</h2>
+                <div class="categorie-info">
+                    <p><strong>Nom:</strong> {{ categorie.name }}</p>
+                    <p><strong>Description:</strong> {{ categorie.description }}</p>
+                    <p><strong>Date de création:</strong> {{ categorie.dateDeCreation ? categorie.dateDeCreation|date('Y-m-d') : '' }}</p>
+                    <!-- Add other category details as needed -->
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune catégorie trouvée.</p>
+        {% endif %}
+    </div>
+{% endblock %}

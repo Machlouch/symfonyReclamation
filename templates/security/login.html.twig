@@ -1,0 +1,85 @@
+{% extends 'baselogin.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block contentblock %}
+	{% for message in app.flashes('pus') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+		{% for message in app.flashes('notverified') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+		{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<div align="center">
+			<label for="inputEmail">Email</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+			<label for="inputPassword">Password</label>
+			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+			<input
+			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+			{# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+			 See https://symfony.com/doc/current/security/remember_me.html #}
+
+			<div class="checkbox mb-3">
+				<label>
+					<input type="checkbox" name="_remember_me">
+					Remember me
+				</label>
+			</div>
+
+			<br>
+			<div>
+				<button align="center" type="submit" class="btn">
+					Sign in
+				</button>
+
+			</div>
+		</div>
+	</form>
+	<br>
+	<div align="center">
+		<a href="{{ path('app_forgot_password_request') }}">
+			<button class="btn">
+				Forgot password ?
+			</button>
+		</a>
+	</div>
+	<style>
+		.btn {
+			background-color: black;
+			color: white;
+			border-radius: 20px;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.btn:hover {
+			background-color: #cc1616;
+			color: white;
+		}
+		form input[type="email"],
+		form input[type="password"] {
+			width: 30%;
+			text-align: center;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des Catégories</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .no-results {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4">Historique des Catégories</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for historique in historiques %}
+            <tr>
+                <td>{{ historique.description }}</td>
+                <td>{{ historique.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2" class="no-results">Aucun historique trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

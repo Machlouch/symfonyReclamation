@@ -1,0 +1,106 @@
+{# templates/service/rate.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Rate Service{% endblock %}
+
+{% block stylesheets %}
+<style>
+    /* Basic reset */
+    *, *:before, *:after {
+        box-sizing: border-box;
+    }
+
+    /* Remove default form styling */
+    form {
+        width: 300px;
+        margin: 50px auto;
+    }
+
+    .star-rating {
+        display: flex;
+        justify-content: center;
+        direction: ltr; /* Reset to default direction */
+    }
+
+    .star-rating input[type="radio"] {
+        display: none;
+    }
+
+    .star-rating label {
+        cursor: pointer;
+        padding: 10px;
+        font-size: 2rem; /* Larger star size */
+    }
+
+    /* Stars when not selected */
+    .star-rating label:before {
+        content: '☆'; /* Unicode hollow star */
+        color: #ccc; /* Light grey color */
+        transition: color 0.2s ease-in-out; /* Smooth transition */
+    }
+
+    /* Hover and checked styles */
+    .star-rating label:hover:before,
+    .star-rating label:hover ~ label:before,
+    .star-rating input[type="radio"]:checked ~ label:before {
+        content: '★'; /* Unicode filled star */
+        color: #f90; /* Orange color for selected stars */
+    }
+
+    /* Hide the label text offscreen for screen readers */
+    .star-rating label .visually-hidden {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    /* Style for the optional comment field */
+    .comment-field {
+        margin-top: 20px;
+    }
+
+    .comment-field textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    /* Style for the submit button */
+    button[type="submit"] {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #218838;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <h1>Rate Service</h1>
+
+    {{ form_start(form) }}
+        <div class="star-rating">
+            {% for i in 1..5 %}
+                <input type="radio" id="star{{ i }}" name="form[score]" value="{{ i }}" {{ i == form.vars.value.score ? 'checked' : '' }}>
+                <label for="star{{ i }}"><span class="visually-hidden">{{ i }} star</span></label>
+            {% endfor %}
+        </div>
+        <div class="comment-field">
+            {{ form_row(form.comment) }}
+        </div>
+        <button type="submit">Submit Rating</button>
+    {{ form_end(form) }}
+{% endblock %}

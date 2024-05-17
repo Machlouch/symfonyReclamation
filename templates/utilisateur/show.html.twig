@@ -1,0 +1,101 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block contentblock %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ utilisateur.name }}</td>
+            </tr>
+             <tr>
+                <th>Email</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ utilisateur.LastName }}</td>
+            </tr>
+            <tr>
+                <th>UserName</th>
+                <td>{{ utilisateur.UserName }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ utilisateur.role }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('' ~ utilisateur.ImagePath) }}" alt="User Image"></td>
+            </tr>
+            {% if utilisateur.role == 'Freelancer' %} 
+            <tr>
+                <th>Bio</th>
+                <td>{{ utilisateur.bio }}</td>
+            </tr>
+            <tr>
+                <th>Experience</th>
+                <td>{{ utilisateur.experience }}</td>
+            </tr>
+            <tr>
+                <th>Education</th>
+                <td>{{ utilisateur.education }}</td>
+            </tr>
+            <tr>
+                <th>Total_jobs</th>
+                <td>{{ utilisateur.totalJobs }} Jobs </td>
+            </tr>
+            <tr>
+                <th>Rating</th>
+                <td>{{ utilisateur.rating }}/20</td>
+            </tr>
+            {% endif %}
+            {% if utilisateur.role == 'Entreprise' %} 
+            <tr>
+                <th>Domaine</th>
+                <td>{{ utilisateur.domaine }}</td>
+            </tr>
+            <tr>
+                <th>Info</th>
+                <td>{{ utilisateur.info }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ utilisateur.location }}</td>
+            </tr>
+            <tr>
+                <th>Nbe</th>
+                <td>{{ utilisateur.nbe }} employees </td>
+            </tr>
+             {% endif %}
+            <tr>
+                <th>IsBanned</th>
+                {% if utilisateur.isBanned == 0 %} 
+                <td> No</td>
+                {% endif %}
+                {% if utilisateur.isBanned == 1 %}
+                <td> Yes</td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <div align = "center">
+    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">
+    <button class="btn btn-warning btn-rounded btn-fw">Edit</button>
+    </a>
+    <br>
+    <br>
+    {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
+
+
+    <div align = "right">
+    <a href="{{ path('app_utilisateur_index') }}">
+    <button type="button" class="btn btn-dark btn-rounded btn-fw">back to list</button>
+    </a>
+    </div>
+{% endblock %}

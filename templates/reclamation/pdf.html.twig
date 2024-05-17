@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reclamations Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reclamations Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Date/Time</th>
+                <th>Verified</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reclamation in reclamations %}
+                <tr>
+                    <td>{{ reclamation.id }}</td>
+                    <td>{{ reclamation.Sujet }}</td>
+                    <td>{{ reclamation.Description }}</td>
+                    <td>{{ reclamation.dt ? reclamation.dt|date('Y-m-d H:i') : '' }}</td>
+                    <td>{{ reclamation.verified ? 'Yes' : 'No' }}</td>
+                    <td>{{ reclamation.recResponses ? 'Yes' : 'No' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

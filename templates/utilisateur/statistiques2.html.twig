@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 align='center'>Statistiques des Utilisateurs</h1>
+    <div style="width:50%; margin:auto;">
+        <canvas id="usersChart"></canvas>
+    </div>
+
+    {# Ajoutez Chart.js à votre template #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('usersChart').getContext('2d');
+        var usersChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Admin', 'Freelancer', 'Entreprise'],
+                datasets: [{
+                    label: 'Pourcentage d\'utilisateurs',
+                    data: [{{ percentages.admin }}, {{ percentages.freelancer }}, {{ percentages.entreprise }}],
+                    backgroundColor: [
+                        'blue', // Admin
+                        'green', // Freelancer
+                        'red'   // Entreprise
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1, // Gardez une valeur de 1 pour un cercle parfait
+                tooltips: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false,
+                    bodyFontSize: 15,
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var label = data.labels[tooltipItem.index] || '';
+                            var value = data.datasets[0].data[tooltipItem.index];
+                            var percentage = value.toFixed(2); // Fixer le nombre de décimales si nécessaire
+                            return label + ': ' + percentage + '%';
+                        }
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontSize: 14,
+                        usePointStyle: true
+                    }
+                },
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    #usersChart {
+        max-width: 600px; // ou la taille que vous souhaitez
+        max-height: 300px; // ou la taille que vous souhaitez
+        margin: auto;
+    }
+</style>
+{% endblock %}

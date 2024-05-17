@@ -1,0 +1,14 @@
+{% extends 'baseBack.html.twig' %}
+{% block title %}Welcome to our website{% endblock %}
+
+{% block contentblock %}
+    <h1> Fill the form and click save ! </h1>
+
+    {{ include('utilisateur/_form.html.twig') }}
+ 
+    <div align = "right">
+        <a href="{{ path('app_utilisateur_index') }}">
+        <button type="button" class="btn btn-dark btn-rounded btn-fw">back to list</button>
+        </a>
+    </div>
+{% endblock %}

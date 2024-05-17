@@ -1,0 +1,169 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+ {% block contentblock %}  
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="table-responsive pt-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                               {% block search %}
+                                   <form>
+                                       <div class="input-group input-group-dynamic mb-8">
+                                           <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                          <input class="form-control" id="search" placeholder="Search" type="text">
+
+                                       </div>
+                                   </form>
+                               {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="reclamationTable" class="table table-striped project-orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Sujet</th>
+                            <th>Description</th>
+                            <th>Dt</th>
+                            <th>Verified</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                                    <tbody >
+                            {% for reclamation in reclamations %}
+                                <tr>
+                                    <td>#D{{ reclamation.id }}</td>
+                                    <td>{{ reclamation.Sujet }}</td>
+                                    <td>{{ reclamation.Description }}</td>
+                                    <td>{{ reclamation.dt ? reclamation.dt|date('Y-m-d H:i:s T') : '' }}</td>
+                                    {% if reclamation.verified == false %}
+                                        <td><label class="badge badge-danger">{{ reclamation.verified ? 'Yes' : 'No' }}</label></td>
+                                    {% else %}
+                                        <td><label class="badge badge-success">{{ reclamation.verified ? 'Yes' : 'No' }}</label></td>
+                                    {% endif %}
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {% if reclamation.verified == false %}
+                                                <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                                                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">
+                                                        Edit
+                                                    </a>
+                                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                                                    <a href="{{ path('app_rec_response_new', {'id': reclamation.id}) }}">
+                                                        Reponse To
+                                                    </a>
+                                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                                </button>
+                                            {% endif %}
+                                            <td>
+            <div class="d-flex align-items-center">
+                <!-- your existing buttons -->
+                <a href="{{ path('qr', {'id': reclamation.id}) }}" class="btn btn-primary">Show QR</a>
+                 {{ include('reclamation/_delete_form.html.twig') }}
+
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">no records found</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+   
+</div>
+
+<a href="{{ path('app_reclamation_new') }}">Create new</a>
+<a href="{{ path('app_reclamation_pdf') }}" class="btn btn-primary">Export to PDF</a>
+
+{% endblock %}
+{% block js %} 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+    var debounceTimeout;
+
+    // Event handler for keyup on #search input
+    $("#search").keyup(function () {
+        var value = $(this).val().toLowerCase();
+
+        // Clear the existing timeout on each keyup to ensure debounce effect
+        clearTimeout(debounceTimeout);
+        
+        // Setting the debounce timeout
+        debounceTimeout = setTimeout(function () {
+            // AJAX request to the server
+            $.ajax({
+                url: "{{ path('searchT') }}", // Ensure this path is correctly mapped in your Symfony routes
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    searchValue: value // Send the current value of the search input to the server
+                },
+                success: function (data) {
+                    // Success callback: update the table with the response data
+                    var tableBody = $('#reclamationTable tbody');
+                    tableBody.empty(); // Clear existing table rows
+
+                    // Check if data is empty
+                    if (data.length === 0) {
+                        tableBody.append('<tr><td colspan="6">No records found</td></tr>');
+                    } else {
+                        // Iterate over the response data to create new table rows
+                        $.each(data, function (i, item) {
+                            var verifiedLabel = item.verified ? 'Yes' : 'No';
+                            var verifiedClass = item.verified ? 'badge-success' : 'badge-danger';
+                            var editUrl = `/reclamation/${item.id}/edit`; // Construct the edit URL
+                            var row = `<tr>
+                                <td>#D${item.id}</td>
+                                <td>${item.sujet}</td>
+                                <td>${item.Description}</td>
+                                <td>${item.dt}</td>
+                                <td><label class="badge ${verifiedClass}">${verifiedLabel}</label></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                                            <a href="${editUrl}">
+                                                Edit
+                                            </a>
+                                            <i class="typcn typcn-edit btn-icon-append"></i>
+                                        </button>
+                                        <!-- Additional buttons can be added here -->
+                                    </div>
+                                </td>
+                            </tr>`;
+                            tableBody.append(row); // Append the new row to the table body
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Error callback: log the error to console for debugging
+                    console.error("Error: ", error);
+                }
+            });
+        }, 500); // Set debounce time to 500 ms
+    });
+});
+</script>
+{% endblock %}
+

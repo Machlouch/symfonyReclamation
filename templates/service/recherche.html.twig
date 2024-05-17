@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="search-container">
+        <h1 class="search-title">Recherche de service</h1>
+        <form class="search-form" method="get" action="{{ path('app_service_search') }}">
+            <input class="search-input" type="text" name="name" placeholder="Entrez le nom du service à rechercher" />
+            <button class="search-button" type="submit">Rechercher</button>
+        </form>
+        
+        {% if service %}
+            <div class="search-results">
+                <h2>Résultats de la recherche:</h2>
+                <div class="service-info">
+                    <!-- display service details -->
+                    <p><strong>Nom:</strong> {{ service.name }}</p>
+                    <p><strong>Description:</strong> {{ service.description }}</p>
+                    <p><strong>Durée:</strong> {{ service.duree ? service.duree|date('H:i:s') : '' }}</p>
+                    <p><strong>Disponibilité:</strong> {{ service.disponibilite }}</p>
+                    <p><strong>Prix:</strong> {{ service.prix }} DT</p>
+                    <p><strong>Date de création:</strong> {{ service.dateDeCreation ? service.dateDeCreation|date('Y-m-d') : '' }}</p>
+                    <!-- and so on for other details -->
+                </div>
+            </div>
+        {% else %}
+            <p>No service found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

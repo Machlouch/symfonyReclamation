@@ -1,0 +1,15 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit RecResponse{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block body %}
+    <h1>Edit RecResponse</h1>
+
+    {{ include('rec_response/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_rec_response_index') }}">back to list</a>
+
+    
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Actualite{% endblock %}
+
+{% block body %}
+  
+    <div class="site-blocks-cover overlay" style="background-image: url('{{ asset('uploads/' ~ actualite.img) }}');" data-aos="fade">
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+    
+    
+          <div class="col-md-12 mt-lg-5 text-center">
+            <h1>{{actualite.title}}</h1>
+            <p class="post-meta">{{actualite.dt|date('Y-m-d')}} &bull; Posted by ADMIN 
+            </p>
+    
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <section class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 blog-content">
+            <p class="lead">{{actualite.description}}</p>
+
+            <div class="pt-5">
+              
+              <p>
+                Tags: <a href="#">#Innovation</a>, <a href="#">#trends</a>
+              </p>
+            </div>
+    
+    
+            <div class="pt-5">
+              <h3 class="mb-5">1 Comments</h3>
+              <ul class="comment-list">
+                <li class="comment">
+                  <div class="vcard bio">
+                    <img src="{{asset('images/person_1.jpg')}}" alt="Image">
+                  </div>
+                  <div class="comment-body">
+                    <h3>Jean Doe</h3>
+                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
+                      ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
+                      impedit necessitatibus, nihil?</p>
+                    <p><a href="#" class="reply">Reply</a></p>
+                  </div>
+                </li>
+    
+               
+              </ul>
+              <!-- END comment-list -->
+    
+              <div class="comment-form-wrap pt-5">
+                <h3 class="mb-5">Leave a comment</h3>
+                {{ include('commentaire/_form.html.twig') }}
+              </div>
+            </div>
+    
+          </div>
+          <div class="col-md-4 sidebar">
+            <div class="sidebar-box">
+         {# Like/Dislike buttons #}
+         <div> Your  Likes  Number : {{numberLike}} </div>
+<form action="{{ path('app_actualite_like', {'id': actualite.id}) }}" method="post">
+    {% if existingLike %}
+        <button type="submit" class="btn btn-danger">
+            Dislike
+        </button>
+    {% else %}
+        <button type="submit" class="btn btn-success">
+            Like
+        </button>
+    {% endif %}
+</form>
+            </div>
+            
+            <div class="sidebar-box">
+              <img src="{{asset('images/person_1.jpg')}}" alt="Image placeholder" class="img-fluid mb-4">
+              <h3>About The Author</h3>
+              <p>ADMIN</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

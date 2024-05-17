@@ -1,0 +1,55 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Statistiques des Types de Réclamation{% endblock %}
+
+{% block contentblock %}
+<div class="container my-5">
+    <h1 class="text-center mb-5 display-4" style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #4A00E0; text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Statistiques des Types de Réclamation</h1>
+    <div class="row">
+        {% for nom, pourcentage in percentages %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card-flip">
+                <div class="card front" style="background: linear-gradient(130deg, #6b72ff 0%, #8e43e7 100%);">
+                    <div class="card-body text-white d-flex flex-column justify-content-center align-items-center">
+                        <h5 class="card-title">{{ nom }}</h5>
+                        <p class="display-4">{{ pourcentage }}%</p>
+                    </div>
+                </div>
+                <div class="card back" style="background: linear-gradient(130deg, #ff6bb2 0%, #ff7c87 100%);">
+                    <div class="card-body text-white d-flex flex-column justify-content-center align-items-center">
+                        <p class="card-text">Détails sur les réclamations de type "{{ nom }}" avec un total de {{ pourcentage }}% des cas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.card-flip {
+  perspective: 1000px;
+}
+.card {
+  height: 300px;
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+}
+.card-flip .card:hover {
+  transform: rotateY(180deg);
+}
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.back {
+  transform: rotateY(180deg);
+}
+</style>
+
+{% endblock %}

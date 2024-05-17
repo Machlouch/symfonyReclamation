@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualite index{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block body %}
+    <h1>Actualite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Dt</th>
+                <th>Img</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actualite in actualites %}
+            <tr>
+                <td>{{ actualite.id }}</td>
+                <td>{{ actualite.title }}</td>
+                <td>{{ actualite.description }}</td>
+                <td>{{ actualite.dt ? actualite.dt|date('Y-m-d') : '' }}</td>
+                <td>{{ actualite.img }}</td>
+                <td>
+                    <a href="{{ path('app_actualite_show', {'id': actualite.id}) }}">show</a>
+                    <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_actualite_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends 'baseFront.html.twig' %}
+
+
+{% block contentblock %}
+
+	<section id="cta" class="cta">
+		<div class="container" data-aos="zoom-in">
+
+			<div class="text-center">
+				<img src="{{ asset('' ~ app.user.ImagePath) }}" alt="cta" class="img-fluid" height="200" width="200" style="border-radius: 10%; margin-bottom: 30px;">
+				{% if app.user.Role == 'Freelancer' %}
+				<h1 style="color: #fff;">{{ app.user.name|upper }}
+					{{ app.user.lastname|upper }}</h1>
+				{% endif %}
+				{% if app.user.Role == 'Entreprise' %}
+				<h1 style="color: #fff;">{{ app.user.name|upper }}</h1>
+				{% endif %}
+				<h2 style="color: #fff;">{{app.user.username}}</h2>
+				<h3 style="color: #fff;">{{app.user.email}}</h3>
+				<a id="showMore" class="cta-btn" href="#pricing">
+					show more
+				</a>
+			</div>
+		</div>
+
+	</section>
+
+
+	<!-- ======= Pricing Section ======= -->
+	<section id="pricing" class="pricing" style="display:none;">
+		<br>
+		<br>
+		<div class="section-title">
+			<span>Details</span>
+			<h2>Details</h2>
+		</div>
+
+		{% if app.user.Role == 'Freelancer' %}
+		<div class="red-container">
+			<h1 style="color: #000;">{{app.user.bio}}</h1>
+
+
+			<h1 style="color: #fff;">Education</h1>
+			<h2 class="username">{{app.user.education}}</h2>
+
+
+			<h1 style="color: #fff;">Experience</h1>
+			<h2 class="username">
+				{{app.user.experience}}
+			</h2>
+
+
+			
+			<div class="rating">
+				<i class="bi bi-star-fill"></i>
+				<span class="rating-number">
+					{{app.user.rating}}/20
+				</span>
+				<i class="bi bi-stack"></i>
+				<span class="job-number">{{app.user.totaljobs}} Jobs</span>
+			</div>
+
+			<div class="containertwobtns">
+				<a href ="{{ path('app_utilisateur_editProfile', {'id': app.user.id}) }}">
+				<button class="btnEdit">Edit</button>
+				</a>
+				<button id="showLess" class="btnEdit" href="#cta">
+					SHOW LESS
+				</button>
+			</div>
+
+
+		</div>
+		{% endif %}
+
+		{% if app.user.role == 'Entreprise' %}
+
+		<div class="red-container">
+		<h1 style="color: #fff;">Domaine</h1>
+			<h2 class= username>{{app.user.domaine}}</h2>
+
+
+			<h1 style="color: #fff;">Info</h1>
+			<h2 class="username">{{app.user.info}}</h2>
+
+
+			<h1 style="color: #fff;">Location</h1>
+			<h2 class="username">
+				{{app.user.location}}
+			</h2>
+
+
+			
+			<div class="rating">
+				<i class="bi bi-people-fill"></i>
+				<span class="rating-number">
+					{{app.user.nbe}} employees
+				</span>
+			</div>
+
+			<div class="containertwobtns">
+				<a href ="{{ path('app_utilisateur_editProfile', {'id': app.user.id}) }}">
+				<button class="btnEdit">Edit</button>
+				</a>
+				<button id="showLess" class="btnEdit" href="#cta">
+					show less
+				</button>
+			</div>
+
+
+		</div>
+		{% endif %}
+
+	</section>
+
+
+	<script>
+		var showbtn = document.querySelector('#showMore');
+showbtn.addEventListener('click', function () {
+var redContainer = document.querySelector('.pricing');
+redContainer.style.display = 'block';
+});
+
+var lessbtn = document.querySelector('#showLess');
+lessbtn.addEventListener('click', function () {
+var redContainer = document.querySelector('.pricing');
+redContainer.style.display = 'none';
+document.querySelector('#cta').scrollIntoView({ behavior: 'smooth' });
+});
+	</script>
+
+
+	<style>
+		.containertwobtns {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.red-container {
+			background-color: #cc1616;
+			padding: 10px;
+			border-radius: 5px;
+			width: 1000px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.username {
+			color: #000;
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.email {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		.bio {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+
+		.section-title {
+			font-size: 20px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.education,
+		.experience {
+			margin-bottom: 20px;
+		}
+
+		.education h3,
+		.experience h3 {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		.education p,
+		.experience p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 5px;
+		}
+		.rating {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.rating i {
+			font-size: 24px;
+			margin: 0 10px;
+		}
+
+		.rating span {
+			font-size: 16px;
+		}
+		.btnEdit {
+			background-color: black;
+			color: white;
+			width: 150px; /* fixed width */
+			border: none;
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 20px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+
+		.btnEdit:hover {
+			background-color: white;
+			color: black;
+		}
+	</style>
+
+{% endblock %}

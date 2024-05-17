@@ -1,0 +1,17 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}New RecResponse{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block contentblock %} 
+
+
+    {{ include('rec_response/_form.html.twig') }}
+
+    <a href="{{ path('app_rec_response_index') }}">back to list</a>
+{% endblock %}
+
+
+
+

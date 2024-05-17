@@ -1,0 +1,28 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5 mb-4">Recherche de type de réclamation</h1>
+        <form method="get" action="{{ path('app_type_reclamation_search') }}" class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <input type="text" name="nom" class="form-control" placeholder="Entrez le nom à rechercher">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </form>
+        
+        {% if typeReclamation %}
+            <div class="search-results">
+                <h2>Résultats de la recherche:</h2>
+                <div class="user-info">
+                    <p><strong>Nom:</strong> {{ typeReclamation.nom }}</p>
+                    <!-- Ajoutez d'autres informations que vous souhaitez afficher -->
+                </div>
+            </div>
+        {% else %}
+            <p class="no-results">Aucun type de réclamation trouvé.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+

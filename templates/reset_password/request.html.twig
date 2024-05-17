@@ -1,0 +1,55 @@
+{% extends 'baselogin.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block contentblock %}
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <section id="team" class="team">
+      <div class="container">
+
+    <h1>Reset your password</h1>
+
+    {% for message in app.flashes('mailnotfound') %}
+            <div class="alert alert-danger" >
+                {{ message }}
+            </div>
+        {% endfor %}
+
+     <div>
+            <small>
+                Enter your email address and we will send you a
+                link to reset your password.
+            </small>
+        </div>
+        <br>
+        <div align = "center">
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        <br>
+       
+        <button class="btn">Send email</button>
+    {{ form_end(requestForm) }}
+    </div>
+
+    </div>
+    </section>
+
+    <style>
+			.btn {
+				background-color: black;
+				color: white;
+				border-radius: 20px;
+				padding: 10px 20px;
+				border: none;
+				cursor: pointer;
+			}
+
+			.btn:hover {
+				background-color: #cc1616;
+				color: white;
+			}
+    </style>
+{% endblock %}

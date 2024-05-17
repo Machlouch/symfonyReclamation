@@ -1,0 +1,61 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Categories List{% endblock %}
+
+{% block contentblock %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Categories List</h1>
+    
+<div class="row justify-content-center mb-3">
+    <div class="col-md-6">
+        <form class="input-group mb-3" action="{{ path('app_categorie_search') }}" method="get">
+            <input type="text" name="name" class="form-control" placeholder="Search by category name" required>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+        <div class="col-md-auto">
+           <a href="{{ path('app_historique') }}" class="btn btn-primary">Historique</a>
+            <a href="{{ path('app_categorie_tri', {'sort': 'name', 'direction': 'ASC'}) }}" class="btn btn-outline-info">Sort by Name (ASC)</a>
+            <a href="{{ path('app_categorie_tri', {'sort': 'name', 'direction': 'DESC'}) }}" class="btn btn-outline-info">Sort by Name (DESC)</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Actions</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Service Associated</th>
+                    <th>Date de création</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                            <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                        <td>{{ categorie.name }}</td>
+                        <td>{{ categorie.description }}</td>
+                        <td>{{ categorie.serviceAssocie }}</td>
+                        <td>{{ categorie.dateDeCreation ? categorie.dateDeCreation|date('Y-m-d') : 'N/A' }}</td>
+                        <td>
+                            <img src="{{ asset(categorie.ImagePath ? categorie.ImagePath : 'path/to/default-image.jpg') }}" alt="Categorie Image" class="img-thumbnail" style="width: 100px; height: auto;">
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

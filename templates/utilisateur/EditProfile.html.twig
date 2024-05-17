@@ -1,0 +1,26 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block contentblock %}
+<div class = "container"> 
+<br>
+         
+    <h1>Edit Your profile</h1>
+
+    {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+    <div align = "center">
+    {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
+    <div align = "right">
+        <a href="{{ path('app_utilisateur_showProfile', {'id': app.user.id}) }}">
+        <button type="button" class="btn btn-dark btn-rounded btn-fw">Back to profile</button>
+        </a>
+        <br>
+        <br>
+    </div>
+    </div>
+
+
+
+{% endblock %}

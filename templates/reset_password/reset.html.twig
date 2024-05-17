@@ -1,0 +1,36 @@
+{% extends 'baselogin.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block contentblock %}
+    <div class="container" >
+    <h1>Reset your password</h1>
+    <div align = "center">
+    {{ form_start(resetForm) }}
+    <br>
+        
+        {{ form_row(resetForm.plainPassword) }}
+        <br>
+        <button class="btn" >Reset password</button>
+    {{ form_end(resetForm) }}
+
+    </div>
+    </div>
+
+
+    <style>
+			.btn {
+				background-color: black;
+				color: white;
+				border-radius: 20px;
+				padding: 10px 20px;
+				border: none;
+				cursor: pointer;
+			}
+
+			.btn:hover {
+				background-color: #cc1616;
+				color: white;
+			}
+    </style>
+{% endblock %}

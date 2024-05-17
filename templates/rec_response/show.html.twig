@@ -1,0 +1,28 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}RecResponse{% endblock %}
+{% block navigation %}
+{{ include('loans/_loanNavMenu.html.twig')}}
+{% endblock %}
+{% block body %}
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rec_response.id }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ rec_response.reponse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rec_response_index') }}">back to list</a>
+
+    <a href="{{ path('app_rec_response_edit', {'id': rec_response.id}) }}">edit</a>
+
+    {{ include('rec_response/_delete_form.html.twig') }}
+{% endblock %}

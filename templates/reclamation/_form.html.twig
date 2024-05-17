@@ -1,0 +1,24 @@
+{# templates/reclamation/new.html.twig #}
+{{ form_start(form, {'attr': {'class': 'p-5 bg-white'}}) }}
+
+<h2 class="h4 text-black mb-5">Contact Form</h2>
+
+{# Display form errors #}
+{% if form.vars.errors|length > 0 %}
+<div class="alert alert-danger">
+    {% for error in form.vars.errors %}
+        <p>{{ error.message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{{ form_row(form.Sujet, {'label_attr': {'class': 'text-black'}, 'attr': {'class': 'form-control'}}) }}
+{{ form_row(form.Description, {'label_attr': {'class': 'text-black'}, 'attr': {'class': 'form-control', 'placeholder': 'Write your notes or questions here...'}}) }}
+
+<div class="row form-group">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary btn-md text-white">Send Message</button>
+    </div>
+</div>
+
+{{ form_end(form) }}
